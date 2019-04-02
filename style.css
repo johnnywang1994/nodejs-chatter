@@ -1,0 +1,24 @@
+#msg-board {
+  max-width: 600px;
+  height: 600px;
+  background: rgb(223, 223, 223);
+  overflow: auto;
+}
+.msg-line {
+  font-size: 16px;
+  color: black;
+}
+.msg-line:nth-child(odd) {
+  background: rgb(205, 255, 200);
+}
+.msg-line:nth-child(even) {
+  background: rgb(203, 230, 255);
+}
+.msg-line.red {
+  color: white;
+  text-align: center;
+  background: rgb(241, 67, 67);
+}
+#popup {
+  display: none;
+}

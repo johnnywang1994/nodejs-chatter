@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>hehe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://johnnywang1994.github.io/cdn/JW.min.js"></script>
+    <script src="https://johnnywang1994.github.io/cdn/center-popup.min.js"></script>
+    <script src="./index.js"></script>
+  </head>
+  <body>
+    <div id="msg-board" class="mx-auto mt-2">
+      <h4 class="bg-primary text-white py-2" style="letter-spacing:2px;text-align:center;margin:0;">Message Board</h4>
+    </div>
+    <div class="mb-2 mt-2">
+      <form id="msg-form" class="form-inline justify-content-center">
+        <div class="form-group">
+          <label for="msg" class="mr-2">Message</label>
+          <input type="text" class="form-control mr-2" id="msg" onkeyup="this.value=this.value.replace(/[<>]+/,'')" placeholder="Enter message">
+          <input type="file" id="image" accept="image/jpeg, image/png, image/jpeg, image/bmp">
+          <button type="submit" class="btn btn-primary">Send</button>
+        </div>
+      </form>
+    </div>
+    <div id="popup">
+      <form id="nick-form" class="form-inline">
+        <input type="text" id="nickname" class="form-control mr-2" onkeyup="this.value=this.value.replace(/[<>]+/,'')" placeholder="What is you name?">
+        <button type="submit" class="btn btn-primary">Comfirm</button>
+      </form>
+    </div>
+  </body>
+</html>
