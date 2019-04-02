@@ -16,9 +16,9 @@ io.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
-  socket.on('send msg', function(msg){
-    console.log('User message: '+msg);
-    io.emit('send msg', msg);
+  socket.on('send msg', function(data){
+    console.log('User: '+ data.name +', message: '+data.msg);
+    io.emit('send msg', data);
   });
   socket.on('send image', function(image){
     console.log('User image base61: '+image);

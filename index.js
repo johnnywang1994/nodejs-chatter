@@ -8,7 +8,11 @@ jw().onload(function(){
     // emit msg
     if (!jw('#image')[0].files[0]) {
       msg_content = jw('#msg').val();
-      socket.emit('send msg', msg_content);
+      var data = {
+        msg: msg_content,
+        name: nickname
+      };
+      socket.emit('send msg', data);
       jw('#msg')[0].value = '';
     }
     // emit image
@@ -40,8 +44,8 @@ jw().onload(function(){
   };
 
   // receive msg
-  socket.on('send msg', function(msg){
-    var html = '<div class="msg-line px-3 py-2">' + nickname + ': ' + msg + '</div>';
+  socket.on('send msg', function(data){
+    var html = '<div class="msg-line px-3 py-2">' + data.name + ': ' + data.msg + '</div>';
     jw('#msg-board').append(html);
   });
   // receive image
