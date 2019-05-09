@@ -1,19 +1,19 @@
-jw().onload(function(){
+$('window').on('load', function(){
   var socket = io();
-  var msg_form = jw('#msg-form')[0];
+  var msg_form = $('#msg-form')[0];
   var msg_content;
   // msg_form submit
   msg_form.onsubmit = function(e){
     e.preventDefault();
     // emit msg
-    if (!jw('#image')[0].files[0]) {
-      msg_content = jw('#msg').val();
+    if (!$('#image')[0].files[0]) {
+      msg_content = $('#msg').val();
       var data = {
         msg: msg_content,
         name: nickname
       };
       socket.emit('send msg', data);
-      jw('#msg')[0].value = '';
+      $('#msg')[0].value = '';
     }
     // emit image
     var setItem = function(image){
@@ -40,13 +40,13 @@ jw().onload(function(){
       }
     };
 
-    setItem(jw('#image')[0]);
+    setItem($('#image')[0]);
   };
 
   // receive msg
   socket.on('send msg', function(data){
     var html = '<div class="msg-line px-3 py-2">' + data.name + ': ' + data.msg + '</div>';
-    jw('#msg-board').append(html);
+    $('#msg-board').append(html);
   });
   // receive image
   socket.on('send image', function(base64){
@@ -55,18 +55,18 @@ jw().onload(function(){
         <img src="${base64}" style="max-width: 500px;">
       </div>
     `;
-    jw('#msg-board').append(html);
+    $('#msg-board').append(html);
   });
   // receive nickname
   socket.on('send nickname', function(name){
     var html = '<div class="msg-line px-3 py-2 red">*****'+ name +' 已進入聊天室*****</div>';
-    jw('#msg-board').append(html);
+    $('#msg-board').append(html);
   });
   
   // popup window
-  var nick_form = jw('#nick-form')[0];
+  var nick_form = $('#nick-form')[0];
   var nickname;
-  var popup = new Popup(jw('#popup')[0], {
+  var popup = new Popup($('#popup')[0], {
     'display': 'inline-flex',
     'justify-content': 'center',
     'align-items': 'center',
@@ -79,7 +79,7 @@ jw().onload(function(){
   // nick_form submit
   nick_form.onsubmit = function(e){
     e.preventDefault();
-    nickname = jw('#nickname').val();
+    nickname = $('#nickname').val();
     if (nickname === '') {
       alert('請輸入您的暱稱，感謝您!');
     } else {
