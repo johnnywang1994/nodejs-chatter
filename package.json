@@ -1,16 +1,20 @@
 {
-  "name": "chat",
+  "name": "nodejs-chat",
   "version": "1.0.0",
-  "description": "",
+  "description": "A litter chat window",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "pug": "pug -w ./src/views/*.pug -o ./src/views",
+    "start": "node ./src/server.js"
   },
-  "author": "",
+  "keywords": [
+    "nodejs",
+    "chatter"
+  ],
+  "author": "johnnywang",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.1",
     "socket.io": "^2.2.0"
   }
 }

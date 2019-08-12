@@ -1,0 +1,9 @@
+#app
+  .container
+    h3 房間：{{ roomid }}
+    p 使用者暱稱：{{ username }}
+    #chat-board
+      .chat-board__view(v-html="boardContent")
+      .chat-board__input__panel
+        input(type="text" id="message" v-model="message")
+        button(@click="sendMessage") 送出

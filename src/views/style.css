@@ -1,0 +1,62 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.room a {
+  display: block;
+  text-align: center;
+  background: #ddd;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.room:hover {
+  background: #eee;
+}
+
+
+/* Popup */
+.popup-username {
+  text-align: center;
+  padding: 15px;
+}
+
+
+/* Chat Board */
+#chat-board {
+  max-width: 600px;
+  margin: auto;
+}
+
+#chat-board .chat-board__view {
+  background: #ddd;
+  height: 450px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#chat-board .chat-board__view .user-enter-msg {
+  background: red;
+  color: #fff;
+  text-align: center;
+}
+
+#chat-board .chat-board__view .message {
+  padding: 5px 10px;
+  background: #dbf3ff;
+}
+
+#chat-board .chat-board__view .me {
+  text-align: right;
+  background: #dbffdb;
+}
+
+@media (max-width: 576px) {
+  #chat-board .chat-board__view {
+    background: #ddd;
+    height: 350px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
