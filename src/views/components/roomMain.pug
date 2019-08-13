@@ -1,11 +1,29 @@
 #app
   .container
-    h3 房間：{{ roomid }}
-    p 使用者暱稱：{{ username }}
-    p 使用者清單：{{ userList }}
-    p 房間人次：{{ userNumber }}
+    .room-info
+      h4 
+        i.fas.fa-home
+        |&nbsp;房間：{{ roomid }}
+      p 
+        label
+          i.fas.fa-user
+          |&nbsp;暱稱： 
+        |{{ username }}
+      p 
+        label
+          i.fas.fa-users
+          |&nbsp;線上： 
+        |{{ userList }}
+      p 
+        label
+          i.fas.fa-calculator
+          |&nbsp;房間人次：
+        |{{ userNumber }}
     #chat-board
       .chat-board__view(v-html="boardContent")
       .chat-board__input__panel
-        input(type="text" id="message" v-model="message")
-        div.btn.ml-4(@click="sendMessage") 送出
+        input#message(type="text", v-model="message")
+        div.btn.ml-4(@click="send") 送出
+        label.upload-file__label.btn.ml-2(for="upload-file")
+          i.fas.fa-file-upload
+          input#upload-file(type="file")

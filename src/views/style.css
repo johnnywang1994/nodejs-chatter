@@ -3,6 +3,10 @@ body {
   padding: 0;
 }
 
+/*
+** Index Page
+*/
+
 /* Room */
 .room {
   margin: 10px;
@@ -18,6 +22,28 @@ body {
 
 .room:hover {
   background: #eee;
+}
+
+
+
+/*
+** Room Page
+*/
+
+/* roomInfo */
+.room-info {
+  margin: 20px auto;
+  max-width: 600px;
+}
+
+.room-info h4 {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd
+}
+
+.room-info label {
+  width: 110px;
+  text-align: right;
 }
 
 
@@ -52,6 +78,10 @@ body {
   background: #dbf3ff;
 }
 
+#chat-board .chat-board__view .message img {
+  max-width: 200px;
+}
+
 #chat-board .chat-board__view .me {
   text-align: right;
   background: #dbffdb;
@@ -69,6 +99,9 @@ body {
 
 /* Input Panel */
 #chat-board .chat-board__input__panel {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   margin: 10px;
 }
 
@@ -87,7 +120,34 @@ body {
 }
 
 #chat-board .chat-board__input__panel .btn {
-  background: #ddd;
+  background: #00dcff;
+  letter-spacing: 2px;
   padding: 5px 15px;
   cursor: pointer;
+}
+
+#chat-board .chat-board__input__panel .upload-file__label {
+  position: relative;
+  display: inline-block;
+  padding: 5px 25px;
+  background: #ffe000;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+#chat-board .chat-board__input__panel #upload-file {
+  position: absolute;
+  padding-left: 1000px;
+  width: 0;
+  height: 0;
+}
+
+@media (max-width: 576px) {
+  #chat-board .chat-board__input__panel #message {
+    width: 240px;
+  }
+
+  #chat-board .chat-board__input__panel .btn {
+    padding: 5px 10px;
+  }
 }

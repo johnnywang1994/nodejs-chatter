@@ -77,6 +77,12 @@ io.on('connection', socket => {
     io.to(roomid).emit('send msg', data);
   })
 
+  // File
+  socket.on('send file', data => {
+    console.log(`User: ${data.name}, file: ${data.fileName}`);
+    io.to(roomid).emit('send file', data);
+  })
+
   // Disconnect
   socket.on('disconnect', () => {
     if (user !== '') {
