@@ -25,5 +25,7 @@
         input#message(type="text", v-model="message")
         div.btn.ml-4(@click="send") 送出
         label.upload-file__label.btn.ml-2(for="upload-file")
-          i.fas.fa-file-upload
-          input#upload-file(type="file")
+          img(src="./images/loading.gif" v-show="fileLoading")
+          i.fas.fa-file-upload(v-show="!fileLoading")
+          span {{ fileName }}
+          input#upload-file(type="file" @change="changeFile")

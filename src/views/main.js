@@ -2,13 +2,15 @@ const app = new Vue({
   el: '#app',
   data() {
     return {
-      socket: io(),
-      roomid: null,
-      username: null,
-      userList: [],
-      userNumber: 0,
-      message: '',
-      boardContent: '',
+      socket: io(), // Socket
+      roomid: null, // 房間號碼
+      username: null, // 用戶名稱
+      userList: [], // 用戶清單
+      userNumber: 0, // 在線人數
+      message: '', // 訊息欄位
+      boardContent: '', // 對話窗內容
+      fileName: '', // 上傳檔案名稱
+      fileLoading: false, // 正在上傳
       popup: new Popup(`
         <div class="popup-username">
           <input type="text" id="username" placeholder="請輸入暱稱" />
@@ -80,13 +82,22 @@ const app = new Vue({
       vm.socket.on('send file', data => {
         const isMe = (data.name === vm.username);
 
-        if (isMe) {
-          vm.boardContent += `<div class="message me"><img src="${data.file}" /><div><a href="${data.file}" download="${data.fileName}">下載</a></div></div>`;
+        if (vm.isImage(data.fileType)) {
+          if (isMe) {
+            vm.boardContent += `<div class="message me"><img src="${data.file}" /></div>`;
+          } else {
+            vm.boardContent += `<div class="message">${data.name}: <img src="${data.file}" /><div><a href="${data.file}" download="${data.fileName}">下載</a></div>`;
+          }
         } else {
-          vm.boardContent += `<div class="message">${data.name}: <img src="${data.file}" /></div>`;
+          if (isMe) {
+            vm.boardContent += `<div class="message me"><a href="${data.file}" download="${data.fileName}"><i class="fas fa-file"></i> ${data.fileName}</a></div>`;
+          } else {
+            vm.boardContent += `<div class="message">${data.name}: <a href="${data.file}" download="${data.fileName}"><i class="fas fa-file"></i> ${data.fileName}</a></div>`;
+          }
         }
 
         vm.fixedBottom(document.getElementsByClassName('chat-board__view')[0]);
+        vm.fileLoading = false;
       })
 
       // Disconnect BroadCast
@@ -125,14 +136,21 @@ const app = new Vue({
       let file = uploadInput.files[0];
 
       if (file) {
+        vm.fileLoading = true
         // 圖片
-        if (vm.isImage(file)) {
-          vm.sendImage(file);
-        }
+        // if (vm.isImage(file.type)) {
+          vm.sendWithDataUrl(file);
+        // }
         // 檔案...
       }
     },
-    sendImage(file) {
+    changeFile() {
+      const vm = this;
+      let uploadInput = document.getElementById('upload-file');
+
+      vm.fileName = uploadInput.files[0].name;
+    },
+    sendWithDataUrl(file) {
       const vm = this;
       let data, url;
 
@@ -152,16 +170,18 @@ const app = new Vue({
       reader.readAsDataURL(file);
     },
     // 判斷是否為圖片
-    isImage(file) {
+    isImage(type) {
       const imageList = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/heic', 'image/heif'];
-      return imageList.includes(file.type);
+      return imageList.includes(type);
     },
     // 清空上傳檔案
     clearFileInput() {
+      const vm = this;
       let uploadInput = document.getElementById('upload-file');
       uploadInput.value = '';
       uploadInput.type = '';
       uploadInput.type = 'file';
+      vm.fileName = '';
     },
     // 固定對話框保持在最下面
     fixedBottom(o) {

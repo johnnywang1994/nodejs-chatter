@@ -31,7 +31,6 @@ io.on('connection', socket => {
   const split_arr = url.split('/');
   const roomid = split_arr[split_arr.length-1];
   let user = ''; // 用戶名
-  // let userid = ''; // 用戶ID
   console.log('A user has connected to: ' + roomid);
 
 
