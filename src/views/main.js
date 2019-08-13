@@ -5,6 +5,8 @@ const app = new Vue({
       socket: io(),
       roomid: null,
       username: null,
+      userList: [],
+      userNumber: 0,
       message: '',
       boardContent: '',
       popup: new Popup(`
@@ -21,9 +23,7 @@ const app = new Vue({
             const username = popup.node.getElementsByTagName('input')[0].value;
 
             if (username !== '') {
-              app.username = username;
               app.socket.emit('send username', username);
-              popup.close();
             } else {
               alert('請輸入暱稱');
             }
@@ -47,9 +47,27 @@ const app = new Vue({
         vm.boardContent += `<div class="user-enter-msg">***** ${username} 已進入聊天室 *****</div>`;
       })
 
+      // Check Username
+      vm.socket.on('check username', res => {
+        if (!res.status) {
+          alert('用戶名已被使用，請使用其他用戶名。');
+        } else {
+          vm.username = res.username;
+          vm.popup.close();
+        }
+      })
+
+      // Update RoomInfo
+      vm.socket.on('update roomInfo', infos => {
+        vm.userList = infos.userList;
+        vm.userNumber = infos.userNumber;
+      })
+
       // Message
       vm.socket.on('send msg', data => {
-        if (data.name === vm.username) {
+        const isMe = (data.name === vm.username);
+
+        if (isMe) {
           vm.boardContent += `<div class="message me">${data.msg}</div>`;
         } else {
           vm.boardContent += `<div class="message">${data.name}: ${data.msg}</div>`;
@@ -72,8 +90,10 @@ const app = new Vue({
         msg: vm.message
       };
 
-      vm.socket.emit('send msg', data);
-      vm.message = '';
+      if (vm.message !== '') {
+        vm.socket.emit('send msg', data);
+        vm.message = '';
+      }
     }
   },
   mounted() {
