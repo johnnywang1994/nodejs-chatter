@@ -153,7 +153,7 @@ const app = new Vue({
     },
     // 判斷是否為圖片
     isImage(file) {
-      const imageList = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+      const imageList = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/heic', 'image/heif'];
       return imageList.includes(file.type);
     },
     // 清空上傳檔案
